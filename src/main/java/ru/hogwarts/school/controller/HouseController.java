@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.service.HouseService;
+import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
 
@@ -12,10 +12,10 @@ import java.util.Collection;
 @RequestMapping("faculties")
 public class HouseController {
 
-    private final HouseService houseService;
+    private final FacultyService houseService;
 
-    public HouseController(HouseService houseService) {
-        this.houseService = houseService;
+    public HouseController(FacultyService facultyService) {
+        this.houseService = facultyService;
     }
 
     @GetMapping("{id}")
@@ -52,7 +52,8 @@ public class HouseController {
     }
 
     @DeleteMapping("{id}")
-    public Faculty deleteFacultu(@PathVariable long id) {
-        return houseService.deleteFaculty(id);
+    public ResponseEntity<Faculty> deleteFaculty(@PathVariable long id) {
+        houseService.deleteFaculty(id);
+        return ResponseEntity.ok().build();
     }
 }
