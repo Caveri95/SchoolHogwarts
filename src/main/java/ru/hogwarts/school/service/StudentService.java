@@ -5,7 +5,6 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -33,7 +32,10 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public Collection<Student> getAllStudents() {
+    public Collection<Student> getAllStudentsOrByAge(Integer minAge, Integer maxAge) {
+        if (minAge != null && maxAge != null) {
+            return studentRepository.findStudentByAgeBetween(minAge, maxAge);
+        }
         return studentRepository.findAll();
     }
 
