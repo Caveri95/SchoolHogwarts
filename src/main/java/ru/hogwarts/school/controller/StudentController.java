@@ -40,14 +40,26 @@ public class StudentController {
 
     @GetMapping("/getAllStudents")
     @Operation(summary = "Получить всех студентов")
-    public ResponseEntity<List<StudentDTO>> getAllStudents() {
-        return ResponseEntity.ok(studentService.getAllStudents());
+    public ResponseEntity<List<StudentDTO>> getAllStudents(@RequestParam("page") Integer pageNumber, @RequestParam("size") Integer pageSize) {
+        return ResponseEntity.ok(studentService.getAllStudents(pageNumber, pageSize));
     }
 
     @GetMapping("/getStudentsByFaculty")
     @Operation(summary = "Получить студентов на факультете")
     public ResponseEntity<List<StudentDTO>> getStudentsByIdFaculty(long id) {
         return ResponseEntity.ok(studentService.getStudentsByIdFaculty(id));
+    }
+
+    @GetMapping("/findAVGStudentAge")
+    @Operation(summary = "Получить средний возраст студентов в школе Хогвартс")
+    public ResponseEntity<Integer> findAVGStudentAge() {
+        return ResponseEntity.ok(studentService.findAVGStudentAge());
+    }
+
+    @GetMapping("/findYoungerStudents")
+    @Operation(summary = "Найти 5 самых молодых студентов")
+    public ResponseEntity<List> findYoungerStudents() {
+        return ResponseEntity.ok(studentService.findYoungerStudents());
     }
 
     @PostMapping
@@ -61,7 +73,7 @@ public class StudentController {
     @Operation(summary = "Редактирование студента", description = "Введите id студента, его имя, возраст и номер факультета для редактирования")
     public ResponseEntity<StudentDTO> editStudent(@RequestBody StudentDTO studentDTO) {
         StudentDTO studentDTO1 = studentService.editStudent(studentDTO);
-        if (studentDTO == null) {
+        if (studentDTO1 == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(studentDTO);

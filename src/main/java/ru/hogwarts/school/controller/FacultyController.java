@@ -5,10 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.DTO.FacultyDTO;
-import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.interfaceForRequest.StudentsByFaculty;
 import ru.hogwarts.school.service.FacultyService;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -50,9 +49,22 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.getFacultyByColor(color));
     }
 
+    @GetMapping("/getAmountStudents")
+    @Operation(summary = "Получить количество студентов в школе")
+    public ResponseEntity<Long> getAmountStudents() {
+        return ResponseEntity.ok(facultyService.getAmountStudents());
+    }
+
+    @GetMapping("/getAmountStudentsByFaculty")
+    @Operation(summary = "Получить количество студентов по факультетам ")
+    public ResponseEntity<List<StudentsByFaculty>> getAmountStudentsByFaculty() {
+        return ResponseEntity.ok(facultyService.getAmountStudentsByFaculty());
+    }
+
     @PostMapping
     @Operation(summary = "Добавить новый факультет", description = "Введите название факультета и его цвет")
     public ResponseEntity<FacultyDTO> addFaculty(@RequestBody FacultyDTO facultyDTO) {
+
         return ResponseEntity.ok(facultyService.createFaculty(facultyDTO));
     }
 
@@ -60,7 +72,7 @@ public class FacultyController {
     @Operation(summary = "Редактирование факультета", description = "Введите id факультета, его название и цвет для редактирования")
     public ResponseEntity<FacultyDTO> editFaculty(@RequestBody FacultyDTO facultyDTO) {
         FacultyDTO facultyDTO1 = facultyService.editFaculty(facultyDTO);
-        if (facultyDTO == null) {
+        if (facultyDTO1 == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(facultyDTO);

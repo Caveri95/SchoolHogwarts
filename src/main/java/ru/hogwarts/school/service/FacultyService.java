@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.DTO.FacultyDTO;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.interfaceForRequest.StudentsByFaculty;
 import ru.hogwarts.school.repositories.FacultyRepository;
 import ru.hogwarts.school.repositories.StudentRepository;
 
@@ -78,6 +79,14 @@ public class FacultyService {
     public FacultyDTO getFacultyByIdStudent(long id) {
         Faculty facultyById = facultyRepository.findFacultyById(studentRepository.findById(id).get().getFaculty().getId());
         return mapToFacultyDTO(facultyById);
+    }
+
+    public Long getAmountStudents() {
+        return facultyRepository.getAmountStudents();
+    }
+
+    public List<StudentsByFaculty> getAmountStudentsByFaculty() {
+        return facultyRepository.getAmountStudentsByFaculty();
     }
 
 

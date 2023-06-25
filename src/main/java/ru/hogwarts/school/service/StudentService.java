@@ -1,11 +1,13 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.DTO.StudentDTO;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.FacultyRepository;
 import ru.hogwarts.school.repositories.StudentRepository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 import static ru.hogwarts.school.model.DTO.StudentDTO.mapToStudentDTO;
@@ -53,8 +55,12 @@ public class StudentService {
         return studentDTOS;
     }
 
-    public List<StudentDTO> getAllStudents() {
-        List<Student> students = studentRepository.findAll();
+    public List<StudentDTO> getAllStudents(Integer pageNumber, Integer pageSize) {
+        if (pageSize > 50 || pageSize <= 0) {
+            pageSize = 50;
+        }
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        List<Student> students = studentRepository.findAll(pageRequest).getContent();
         List<StudentDTO> studentDTOs = new ArrayList<>();
 
         for (Student student : students) {
@@ -74,6 +80,16 @@ public class StudentService {
         }
         return studentDTOS;
     }
+
+    public Integer findAVGStudentAge() {
+        return studentRepository.findAVGStudentAge();
+    }
+
+    public List findYoungerStudents() {
+        return studentRepository.findYoungerStudents();
+    }
+
+
 
     private Student mapToStudent(StudentDTO studentDTO) {
         return new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getAge(),
