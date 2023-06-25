@@ -9,6 +9,9 @@ import ru.hogwarts.school.repositories.StudentRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.hogwarts.school.model.DTO.FacultyDTO.mapToFaculty;
+import static ru.hogwarts.school.model.DTO.FacultyDTO.mapToFacultyDTO;
+
 @Service
 public class FacultyService {
 
@@ -21,7 +24,8 @@ public class FacultyService {
     }
 
 
-    public FacultyDTO createFaculty(Faculty faculty) {
+    public FacultyDTO createFaculty(FacultyDTO facultyDTO) {
+        Faculty faculty = mapToFaculty(facultyDTO);
         return mapToFacultyDTO(facultyRepository.save(faculty));
     }
 
@@ -29,9 +33,10 @@ public class FacultyService {
         return mapToFacultyDTO(facultyRepository.getReferenceById(id));
     }
 
-    public FacultyDTO editFaculty(Faculty faculty) {
+    public FacultyDTO editFaculty(FacultyDTO facultyDTO) {
+        Faculty faculty = mapToFaculty(facultyDTO);
         facultyRepository.save(faculty);
-        return mapToFacultyDTO(faculty);
+        return facultyDTO;
     }
 
     public void deleteFaculty(long id) {
@@ -75,18 +80,9 @@ public class FacultyService {
         return mapToFacultyDTO(facultyById);
     }
 
-    private FacultyDTO mapToFacultyDTO(Faculty faculty) {
-        FacultyDTO facultyDTO = new FacultyDTO();
-        facultyDTO.setId(faculty.getId());
-        facultyDTO.setName(faculty.getName());
-        facultyDTO.setColor(faculty.getColor());
 
-        return facultyDTO;
-    }
 
-    private Faculty mapToFaculty(FacultyDTO facultyDTO) {
-        return new Faculty(facultyDTO.getId(), facultyDTO.getName(), facultyDTO.getColor());
-    }
+
 
 
 }

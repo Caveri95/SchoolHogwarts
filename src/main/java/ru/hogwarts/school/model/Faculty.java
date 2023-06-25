@@ -14,7 +14,7 @@ public class Faculty {
     private String color;
 
     @OneToMany
-    List<Student> students;
+    private List<Student> students;
 
     public Faculty(long id, String name, String color) {
         this.id = id;
@@ -48,6 +48,14 @@ public class Faculty {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     @Override

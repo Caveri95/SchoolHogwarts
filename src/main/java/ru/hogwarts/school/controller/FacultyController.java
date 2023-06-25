@@ -33,7 +33,7 @@ public class FacultyController {
 
     @GetMapping
     @Operation(summary = "Получить список факультетов по имени либо вывести список всех имеющихся факультетов")
-    public ResponseEntity<List<FacultyDTO>> getAllFacultiesOrByName(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<FacultyDTO>> getAllFacultiesOrByName(@RequestParam(required = false ) String name) {
         return ResponseEntity.ok(facultyService.getAllFacultiesOrByName(name));
     }
 
@@ -52,14 +52,14 @@ public class FacultyController {
 
     @PostMapping
     @Operation(summary = "Добавить новый факультет", description = "Введите название факультета и его цвет")
-    public ResponseEntity<FacultyDTO> addFaculty(@RequestBody Faculty faculty) {
-        return ResponseEntity.ok(facultyService.createFaculty(faculty));
+    public ResponseEntity<FacultyDTO> addFaculty(@RequestBody FacultyDTO facultyDTO) {
+        return ResponseEntity.ok(facultyService.createFaculty(facultyDTO));
     }
 
     @PutMapping
     @Operation(summary = "Редактирование факультета", description = "Введите id факультета, его название и цвет для редактирования")
-    public ResponseEntity<FacultyDTO> editFaculty(@RequestBody Faculty faculty) {
-        FacultyDTO facultyDTO = facultyService.editFaculty(faculty);
+    public ResponseEntity<FacultyDTO> editFaculty(@RequestBody FacultyDTO facultyDTO) {
+        FacultyDTO facultyDTO1 = facultyService.editFaculty(facultyDTO);
         if (facultyDTO == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

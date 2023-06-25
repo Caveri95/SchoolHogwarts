@@ -8,6 +8,8 @@ import ru.hogwarts.school.repositories.StudentRepository;
 
 import java.util.*;
 
+import static ru.hogwarts.school.model.DTO.StudentDTO.mapToStudentDTO;
+
 @Service
 public class StudentService {
 
@@ -20,18 +22,20 @@ public class StudentService {
     }
 
 
-    public StudentDTO createStudent(Student student) {
+    public StudentDTO createStudent(StudentDTO studentDTO) {
+        Student student = mapToStudent(studentDTO);
         studentRepository.save(student);
-        return mapToStudentDTO(student);
+        return studentDTO;
     }
 
     public StudentDTO findStudent(long id) {
         return mapToStudentDTO(studentRepository.findById(id).get());
     }
 
-    public StudentDTO editStudent(Student student) {
+    public StudentDTO editStudent(StudentDTO studentDTO) {
+        Student student = mapToStudent(studentDTO);
         studentRepository.save(student);
-        return mapToStudentDTO(student);
+        return studentDTO;
     }
 
     public void deleteStudent(long id) {
@@ -71,20 +75,10 @@ public class StudentService {
         return studentDTOS;
     }
 
-       private StudentDTO mapToStudentDTO(Student student) {
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setId(student.getId());
-        studentDTO.setName(student.getName());
-        studentDTO.setAge(student.getAge());
-        studentDTO.setFacultyId(student.getFaculty().getId());
-        return studentDTO;
-    }
-
     private Student mapToStudent(StudentDTO studentDTO) {
         return new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getAge(),
                 facultyRepository.findFacultyById(studentDTO.getFacultyId()));
     }
-
 
 
 }

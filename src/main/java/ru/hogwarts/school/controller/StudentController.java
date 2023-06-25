@@ -52,15 +52,15 @@ public class StudentController {
 
     @PostMapping
     @Operation(summary = "Добавить нового студента", description = "Введите id студента, его имя и возраст")
-    public ResponseEntity<StudentDTO> addStudent(@RequestBody Student student) {
+    public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO studentDTO) {
 
-        return ResponseEntity.ok(studentService.createStudent(student));
+        return ResponseEntity.ok(studentService.createStudent(studentDTO));
     }
 
     @PutMapping
     @Operation(summary = "Редактирование студента", description = "Введите id студента, его имя, возраст и номер факультета для редактирования")
-    public ResponseEntity<StudentDTO> editStudent(@RequestBody Student student) {
-        StudentDTO studentDTO = studentService.editStudent(student);
+    public ResponseEntity<StudentDTO> editStudent(@RequestBody StudentDTO studentDTO) {
+        StudentDTO studentDTO1 = studentService.editStudent(studentDTO);
         if (studentDTO == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
