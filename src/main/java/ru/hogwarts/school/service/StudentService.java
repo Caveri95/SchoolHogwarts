@@ -4,6 +4,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.DTO.StudentDTO;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.model.interfaceForRequest.YoungerStudents;
 import ru.hogwarts.school.repositories.FacultyRepository;
 import ru.hogwarts.school.repositories.StudentRepository;
 
@@ -85,13 +86,13 @@ public class StudentService {
         return studentRepository.findAVGStudentAge();
     }
 
-    public List findYoungerStudents() {
+    public List<YoungerStudents> findYoungerStudents() {
         return studentRepository.findYoungerStudents();
     }
 
 
 
-    private Student mapToStudent(StudentDTO studentDTO) {
+    public Student mapToStudent(StudentDTO studentDTO) {
         return new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getAge(),
                 facultyRepository.findFacultyById(studentDTO.getFacultyId()));
     }
