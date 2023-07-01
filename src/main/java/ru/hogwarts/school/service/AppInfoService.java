@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.DTO.AppInfoDTO;
 
 @Service
-@Profile("!test")
-
-public class AppInfoService implements Info {
+public class AppInfoService {
 
     @Value ("${app.env}")
     private String appEnv;

@@ -5,15 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.hogwarts.school.model.DTO.AppInfoDTO;
-import ru.hogwarts.school.service.Info;
+import ru.hogwarts.school.service.AppInfoService;
 
 @RestController
 @RequestMapping("/appInfo")
 public class InfoController {
 
-    private final Info appInfoService;
+    private final AppInfoService appInfoService;
 
-    public InfoController(Info appInfoService) {
+    public InfoController(AppInfoService appInfoService) {
         this.appInfoService = appInfoService;
     }
 
