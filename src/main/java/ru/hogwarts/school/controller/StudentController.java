@@ -13,7 +13,6 @@ import ru.hogwarts.school.model.interfaceForRequest.YoungerStudents;
 import ru.hogwarts.school.service.StudentAvatarService;
 import ru.hogwarts.school.service.StudentService;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
