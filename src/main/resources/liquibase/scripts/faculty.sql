@@ -8,3 +8,7 @@ create table faculty
     color varchar(255),
     name  varchar(255)
 );
+
+-- changeset Caveri:2
+
+ALTER TABLE faculty ADD CONSTRAINT name_unique UNIQUE (name);

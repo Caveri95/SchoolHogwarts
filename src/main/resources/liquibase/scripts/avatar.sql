@@ -12,3 +12,7 @@ create table avatar
     student_id bigint
 );
 
+-- changeset Caveri:2
+
+ALTER TABLE avatar ADD FOREIGN KEY (student_id) REFERENCES student(id);
+
