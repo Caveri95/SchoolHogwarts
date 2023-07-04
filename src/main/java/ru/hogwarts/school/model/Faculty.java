@@ -10,10 +10,11 @@ public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String name;
     private String color;
 
-    @OneToMany
+    @OneToMany(mappedBy = "faculty")
     private List<Student> students;
 
     public Faculty(long id, String name, String color) {
